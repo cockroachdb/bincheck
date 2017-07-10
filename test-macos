@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+curl -sSfL https://binaries.cockroachdb.com/cockroach-$(<VERSION).darwin-10.9-amd64.tgz \
+  | tar zx --strip-components=1
+
+./bincheck ./cockroach $(<VERSION)

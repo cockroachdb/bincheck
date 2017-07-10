@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Verify arguments.
+if [[ $# -ne 2 ]]
+then
+  echo "usage: $0 COCKROACH-BINARY EXPECTED-VERSION" >&2
+  exit 1
+fi
+
+readonly cockroach="$1"
+readonly version="$2"
+readonly urlfile=cockroach-url
+
+cockroach() { "$cockroach" "$@"; }
+
+# Start a CockroachDB server, wait for it to become ready, and arrange for it to
+# be force-killed when the script exits.
+rm -f "$urlfile"
+cockroach start --insecure --store type=mem,size=1GiB --listening-url-file="$urlfile" &
+trap "kill -9 $! &> /dev/null" EXIT
+for i in {0..3}
+do
+  [[ -f "$urlfile" ]] && break
+  backoff=$((2 ** i))
+  echo "server not yet available; sleeping for $backoff seconds"
+  sleep $backoff
+done
+
+# Verify the output of a simple SQL query.
+cockroach sql --insecure <<EOF
+  CREATE DATABASE bank;
+  CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
+  INSERT INTO bank.accounts VALUES (1, 1000.50);
+EOF
+cat > expected <<EOF
+1 row
+id	balance
+1	1000.50
+EOF
+cockroach sql --insecure -e 'SELECT * FROM bank.accounts' > actual
+diff -u expected actual
+
+# Attempt a clean shutdown for good measure. We'll force-kill in the atexit
+# handler if this fails.
+cockroach quit --insecure
+
+# Verify reported version matches expected version.
+echo "$version" > expected
+cockroach version | grep 'Build Tag' | cut -f2 -d: | tr -d ' ' > actual
+diff -u expected actual

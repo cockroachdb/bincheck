@@ -1,0 +1,22 @@
+language: generic
+
+script:
+  - |-
+    if [[ "$TRAVIS_OS_NAME" == osx ]]
+    then
+      ./test-macos
+    else
+      ./test-linux
+    fi
+
+addons:
+  apt:
+    packages:
+      - qemu-system-x86
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: false
+    - os: osx

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ssh() {
+  command ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+    root@localhost -p 2222 "$@"
+}
+
+mkdir -p mnt
+
+curl -L https://binaries.cockroachdb.com/cockroach-$(<VERSION).linux-amd64.tgz \
+  | tar zx -C mnt --strip-components=1
+
+qemu-system-x86_64 \
+  -cpu qemu64,-sse4.2 \
+  -kernel images/qemu_x86_64_glibc_bzImage \
+  -net nic,model=virtio -net user,hostfwd=tcp::2222-:22 \
+  -drive file=fat:mnt,format=raw \
+  -nographic &
+
+trap "kill -9 $! &> /dev/null" EXIT
+
+for i in {0..4}
+do
+  ssh true && break
+  backoff=$((2 ** i))
+  echo "VM not yet available; sleeping for $backoff seconds"
+  sleep $backoff
+done
+
+ssh /bin/bash -s /bincheck/cockroach $(<VERSION) < bincheck
