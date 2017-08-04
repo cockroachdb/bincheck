@@ -16,7 +16,7 @@ readonly urlfile=cockroach-url
 # Start a CockroachDB server, wait for it to become ready, and arrange for it to
 # be force-killed when the script exits.
 rm -f "$urlfile"
-"$cockroach" start --insecure --store type=mem,size=1GiB --listening-url-file="$urlfile" &
+"$cockroach" start --insecure --listening-url-file="$urlfile" &
 trap "kill -9 $! &> /dev/null" EXIT
 for i in {0..3}
 do
