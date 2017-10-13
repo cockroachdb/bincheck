@@ -33,9 +33,9 @@ done
   INSERT INTO bank.accounts VALUES (1, 1000.50);
 EOF
 cat > expected <<EOF
-1 row
 id	balance
 1	1000.50
+# 1 row
 EOF
 "$cockroach" sql --insecure -e 'SELECT * FROM bank.accounts' > actual
 diff -u expected actual
