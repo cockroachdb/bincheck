@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+ls -l /lib/x86_64-linux-gnu/
+
 ssh() {
   command ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     root@localhost -p 2222 "$@"
