@@ -14,6 +14,7 @@ curl -L https://binaries.cockroachdb.com/cockroach-$(<VERSION).linux-amd64.tgz \
 
 qemu-system-x86_64 \
   -cpu Nehalem \
+  -m 1G \
   -kernel images/qemu_x86_64_glibc_bzImage \
   -net nic,model=virtio -net user,hostfwd=tcp::2222-:22 \
   -drive file=fat:mnt,format=raw \
