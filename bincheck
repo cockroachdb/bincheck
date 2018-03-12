@@ -35,7 +35,6 @@ EOF
 cat > expected <<EOF
 id	balance
 1	1000.50
-# 1 row
 EOF
 "$cockroach" sql --insecure -e 'SELECT * FROM bank.accounts' > actual
 diff -u expected actual
