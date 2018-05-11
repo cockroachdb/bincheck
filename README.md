@@ -11,8 +11,11 @@ sanity checks are:
 
 ## Testing a new release
 
-Update the version in [VERSION] appropriately, commit, and push! macOS and Linux
-binaries are verified by TravisCI; Windows binaries are verified by AppVeyor.
+Update the version in [VERSION] appropriately, commit, and push! You can use the
+little pencil button to edit the file directly through the GitHub UI (no need to
+fork the repo). This commit will automatically kick off checks to verify the
+release. macOS and Linux binaries are verified by TravisCI; Windows binaries are
+verified by AppVeyor. If the checks complete successfully, you are done!
 
 ## The nitty-gritty
 
