@@ -11,7 +11,7 @@ sanity checks are:
 
 ## Testing a new release
 
-Update the version in [VERSION] appropriately, commit, and push! You can use the
+Update the version in [VERSION] on the appropriate branch (eg: `release-2.0` for 2.0 builds), commit, and push! You can use the
 little pencil button to edit the file directly through the GitHub UI (no need to
 fork the repo). This commit will automatically kick off checks to verify the
 release. macOS and Linux binaries are verified by TravisCI; Windows binaries are
