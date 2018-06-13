@@ -2,15 +2,14 @@
 
 set -euo pipefail
 
+# Download the binary based on the VERSION file. This sets the COCKROACH_VERSION env variable
+# and downloads the binary in ./mnt/
+. download_binary.sh "linux-amd64.tgz"
+
 ssh() {
   command ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
     root@localhost -p 2222 "$@"
 }
-
-mkdir -p mnt
-
-curl -L https://binaries.cockroachdb.com/cockroach-$(<VERSION).linux-amd64.tgz \
-  | tar zx -C mnt --strip-components=1
 
 qemu-system-x86_64 \
   -cpu qemu64,-sse4.2 \
@@ -30,4 +29,4 @@ do
   sleep $backoff
 done
 
-ssh /bin/bash -s /bincheck/cockroach $(<VERSION) < bincheck
+ssh /bin/bash -s /bincheck/cockroach ${COCKROACH_VERSION} < bincheck

@@ -1,1 +1,8 @@
-v2.0.2
+# WARNING: make sure to use the correct release-X.Y branch.
+# The version can take one of two formats:
+# - v<version>: release binary from https://binaries.cockroachdb.com
+#   eg: v2.0.2
+# - test:v<version>: test release binary from https://binaries-test.cockroachdb.com
+#   eg: test:vx.y.z[-extensions]
+#
+v2.1.0-alpha.20180604
