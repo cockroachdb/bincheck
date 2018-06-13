@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-curl -sSfL https://binaries.cockroachdb.com/cockroach-$(<VERSION).darwin-10.9-amd64.tgz \
-  | tar zx --strip-components=1
+# Download the binary based on the VERSION file. This sets the COCKROACH_VERSION env variable
+# and downloads the binary in ./mnt/
+. download_binary.sh "darwin-10.9-amd64.tgz"
 
-./bincheck ./cockroach $(<VERSION)
+./bincheck ./mnt/cockroach ${COCKROACH_VERSION}
