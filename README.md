@@ -11,11 +11,12 @@ sanity checks are:
 
 ## Testing a new release
 
-Update the version in [VERSION] on the appropriate branch (eg: `release-2.0` for 2.0 builds), commit, and push! You can use the
-little pencil button to edit the file directly through the GitHub UI (no need to
-fork the repo). This commit will automatically kick off checks to verify the
-release. macOS and Linux binaries are verified by TravisCI; Windows binaries are
-verified by AppVeyor. If the checks complete successfully, you are done!
+Update the version in [VERSION] on the appropriate branch (eg: `release-2.0` for 2.0 builds) and open a PR.
+You can use the little pencil button to edit the file directly through the GitHub UI (no need to
+fork the repo); just make sure to select the "start a pull request" option.
+The PR will automatically kick off checks to verify the release. macOS and Linux binaries are verified by
+TravisCI; Windows binaries are verified by AppVeyor. If the checks complete successfully, you can
+merge the PR and you're done!
 
 ## The nitty-gritty
 
