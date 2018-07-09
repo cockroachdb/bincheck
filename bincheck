@@ -14,18 +14,22 @@ readonly version="$2"
 readonly urlfile=cockroach-url
 
 # Display build information.
+echo ""
 "$cockroach" version
+echo ""
 
 # Start a CockroachDB server, wait for it to become ready, and arrange for it to
 # be force-killed when the script exits.
 rm -f "$urlfile"
 
 # Generate encryption key.
-#"$cockroach" gen encryption-key aes-128.key
+echo "Generating encryption key:"
+"$cockroach" gen encryption-key aes-128.key
+echo ""
 
 # Start node with encryption enabled.
-"$cockroach" start --insecure --listening-url-file="$urlfile" &
-#"$cockroach" start --insecure --listening-url-file="$urlfile" --enterprise-encryption=path=cockroach-data,key=aes-128.key,old-key=plain &
+"$cockroach" start --insecure --listening-url-file="$urlfile" --enterprise-encryption=path=cockroach-data,key=aes-128.key,old-key=plain &
+
 trap "kill -9 $! &> /dev/null" EXIT
 for i in {0..3}
 do
