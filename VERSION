@@ -5,4 +5,4 @@
 # - test:v<version>: test release binary from https://binaries-test.cockroachdb.com
 #   eg: test:vx.y.z[-extensions]
 #
-v2.1.0-alpha.20180702
+test:27422
