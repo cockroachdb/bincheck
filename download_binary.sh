@@ -7,25 +7,22 @@ binary_source=""
 cockroach_version=""
 while read line; do
   case "$line" in
-  \#*)
-    continue ;;
+  \#*|"") continue ;;
   test:*)
     binary_source="https://binaries-test.cockroachdb.com"
     parts=(${line//:/ })
-    cockroach_version="${parts[1]}"
+    export COCKROACH_VERSION=${parts[1]}
     ;;
-  "")
-    continue
+  v*)
+    binary_source="https://binaries.cockroachdb.com"
+    export COCKROACH_VERSION=$line
     ;;
   *)
-    binary_source="https://binaries.cockroachdb.com"
-    cockroach_version="${line}"
-    ;;
+    export COCKROACH_SHA=$line
   esac
 done < VERSION
 
-export COCKROACH_VERSION="${cockroach_version}"
-binary_url="${binary_source}/cockroach-${cockroach_version}.${binary_suffix}"
+binary_url="${binary_source}/cockroach-$COCKROACH_VERSION.${binary_suffix}"
 
 mkdir -p mnt
 

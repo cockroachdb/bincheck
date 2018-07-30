@@ -6,4 +6,4 @@ set -euo pipefail
 # and downloads the binary in ./mnt/
 . download_binary.sh "windows-6.2-amd64.zip"
 
-./bincheck ./mnt/cockroach.exe ${COCKROACH_VERSION}
+./bincheck ./mnt/cockroach.exe "$COCKROACH_VERSION" "$COCKROACH_SHA"
