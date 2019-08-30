@@ -50,20 +50,27 @@ cat > expected <<EOF
 id	balance
 1	1000.50
 EOF
+echo Running SQL
 "$cockroach" sql --insecure -e 'SELECT * FROM bank.accounts' > actual
+echo Diffing
 diff -u expected actual
 
 # Attempt a clean shutdown for good measure. We'll force-kill in the atexit
 # handler if this fails.
+echo Attempting clean shutdown
 "$cockroach" quit --insecure
 trap - EXIT
 
 # Verify reported version matches expected version.
 echo "$version" > expected
+echo Verifying version
 "$cockroach" version | grep 'Build Tag' | cut -f2 -d: | tr -d ' ' > actual
 diff -u expected actual
 
 # Verify reported SHA matches expected SHA.
+echo Verifying SHA
 echo "$sha" > expected
 "$cockroach" version | grep 'Build SHA-1' | cut -f2 -d: | tr -d ' ' > actual
 diff -u expected actual
+
+echo All done
