@@ -25,7 +25,6 @@ done < VERSION
 binary_url="${binary_source}/cockroach-$COCKROACH_VERSION.${binary_suffix}"
 
 ls -la
-ls -la mnt
 rm -rf mnt
 mkdir -p mnt
 
@@ -33,8 +32,9 @@ mkdir -p mnt
 if [[ "${binary_suffix}" == *.tgz ]]; then
   curl -sSfL "${binary_url}" | tar zx -C mnt --strip-components=1
 else
-  curl -sSL "${binary_url}" > cockroach.zip
+  curl -sSvL "${binary_url}" --output cockroach.zip
   7z e -omnt -aoa cockroach.zip
+  ls -la mnt
 fi
 
 echo "Downloaded ${binary_url}"
