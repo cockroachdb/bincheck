@@ -30,8 +30,8 @@ mkdir -p mnt
 if [[ "${binary_suffix}" == *.tgz ]]; then
   curl -sSfL "${binary_url}" | tar zx -C mnt --strip-components=1
 else
-  curl -sSfL "${binary_url}" > cockroach.zip
-  7z e -omnt cockroach.zip
+  curl -sSL "${binary_url}" > cockroach.zip
+  7z e -omnt -aoa cockroach.zip
 fi
 
 echo "Downloaded ${binary_url}"
