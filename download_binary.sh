@@ -24,6 +24,9 @@ done < VERSION
 
 binary_url="${binary_source}/cockroach-$COCKROACH_VERSION.${binary_suffix}"
 
+ls -la
+ls -la mnt
+rm -rf mnt
 mkdir -p mnt
 
 # Check if this is a tarball or zip.
