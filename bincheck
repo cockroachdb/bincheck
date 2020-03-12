@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+export COCKROACH_INCONSISTENT_TIME_ZONES=true
+
 # Verify arguments.
 if [[ $# -ne 3 ]]
 then
