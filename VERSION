@@ -13,5 +13,6 @@
 #
 # Be sure to list the expected SHA, in full, on the line following the version.
 
-v19.2.6
-ee759892738f7f203ff95ec7627b90d7c47b4350
+v20.1.0-rc.1
+e593160235da38f0126546ea76374c796f2a194a
+
