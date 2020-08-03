@@ -31,7 +31,7 @@ echo "Generating encryption key:"
 echo ""
 
 # Start node with encryption enabled.
-"$cockroach" start --insecure --listening-url-file="$urlfile" --enterprise-encryption=path=cockroach-data,key=aes-128.key,old-key=plain &
+"$cockroach" start-single-node --insecure --listening-url-file="$urlfile" --enterprise-encryption=path=cockroach-data,key=aes-128.key,old-key=plain &
 
 trap "kill -9 $! &> /dev/null" EXIT
 for i in {0..3}
