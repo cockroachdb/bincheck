@@ -67,5 +67,5 @@ diff -u expected actual
 
 # Verify reported SHA matches expected SHA.
 echo "$sha" > expected
-"$cockroach" version | grep 'Build SHA-1' | cut -f2 -d: | tr -d ' ' > actual
+"$cockroach" version | grep 'Build Commit ID' | cut -f2 -d: | tr -d ' ' > actual
 diff -u expected actual
