@@ -13,7 +13,13 @@ sanity checks are:
 
 Open a PR that updates the version in [VERSION] on the appropriate branch (eg: `release-2.0` for 2.0 builds).
 You can use the little pencil button to edit the file directly through the GitHub UI (no need to
-fork the repo); just make sure to select the "start a pull request" option.
+fork the repo):
+
+**Important: make sure to select the "start a pull request" option before clicking "Propose changes":**
+  
+<img width="550" src="https://user-images.githubusercontent.com/3051672/105749155-0b15e880-5f11-11eb-97a7-308cec768df3.png">
+
+
 The PR will automatically kick off checks to verify the release. macOS and Linux binaries are verified by
 TravisCI; Windows binaries are verified by AppVeyor. If the checks complete successfully, you can
 merge the PR and you're done!
