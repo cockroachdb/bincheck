@@ -6,6 +6,8 @@ binary_suffix=$1
 binary_source=""
 cockroach_version=""
 while read line; do
+  # Trailing \r on Windows sneaks into the variables, let's nuke it
+  line=$(echo $line | tr -d '\r')
   case "$line" in
   \#*|"") continue ;;
   test:*)
