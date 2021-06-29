@@ -16,7 +16,7 @@ qemu-system-x86_64 \
   -m 1G \
   -kernel images/qemu_x86_64_glibc_bzImage \
   -net nic,model=virtio -net user,hostfwd=tcp::2222-:22 \
-  -drive file=fat:mnt,format=raw \
+  -drive file=fat:rw:mnt,format=raw \
   -nographic &
 
 trap "kill -9 $! &> /dev/null" EXIT
