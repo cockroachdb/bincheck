@@ -1,7 +1,6 @@
 # cockroachdb/bincheck
 
-[![Build Status](https://travis-ci.org/benesch/bincheck.svg?branch=master)](https://travis-ci.org/benesch/bincheck)
-[![Build status](https://ci.appveyor.com/api/projects/status/6u82wqnbjdrsvggu?svg=true)](https://ci.appveyor.com/project/benesch/bincheck)
+[![Build Status](https://github.com/cockroachdb/bincheck/actions/workflows/ci.yaml/badge.svg)](https://github.com/cockroachdb/bincheck/actions/workflows/ci.yaml)
 
 bincheck verifies the sanity of CockroachDB release binaries. At present, the
 sanity checks are:
@@ -13,24 +12,30 @@ sanity checks are:
 
 Open a PR that updates the version in [VERSION] on the appropriate branch (eg: `release-2.0` for 2.0 builds).
 You can use the little pencil button to edit the file directly through the GitHub UI (no need to
-fork the repo); just make sure to select the "start a pull request" option.
-The PR will automatically kick off checks to verify the release. macOS and Linux binaries are verified by
-TravisCI; Windows binaries are verified by AppVeyor. If the checks complete successfully, you can
-merge the PR and you're done!
+fork the repo):
+
+**Important: make sure to select the "start a pull request" option before clicking "Propose changes":**
+  
+<img width="550" src="https://user-images.githubusercontent.com/3051672/105749155-0b15e880-5f11-11eb-97a7-308cec768df3.png">
+
+
+The PR will automatically kick off checks to verify the release using GitHub
+Actions.  If the checks complete successfully, you can merge the PR and you're
+done!
 
 ## The nitty-gritty
 
 ### Overview
 
-For the macOS and Windows binaries, the mechanics involved are simple. We ask
-Travis or AppVeyor, respectively, to spin us up a macOS or Windows VM, download
-the appropriate pre-built `cockroach` binary, and run our sanity checks.
+For the MacOS and Windows binaries, the mechanics involved are simple. We ask
+GitHub Actions to spin us up a MacOS or Windows runner, download the
+appropriate pre-built `cockroach` binary, and run our sanity checks.
 
 Linux is more complicated, not out of necessity, but out of ambition. We co-opt
 the Linux verification step to additionally test support for pre-SSE4.2
 CPUs<sup>†</sup>. This requires emulating such a CPU, and Linux is the only
-operating system that is feasible to run under emulation. Windows and macOS have
-prohibitively slow boot times, and, perhaps more importantly, Windows and macOS
+operating system that is feasible to run under emulation. Windows and MacOS have
+prohibitively slow boot times, and, perhaps more importantly, Windows and MacOS
 install media are not freely available.
 
 So, with the help of [Buildroot], an embedded Linux build manager, this
